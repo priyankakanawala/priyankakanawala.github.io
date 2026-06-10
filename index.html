@@ -249,20 +249,7 @@
     transition: opacity 0.4s ease, transform 0.4s ease;
   }
 
-  .work-item-theme {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.55rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.75);
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.4s ease 0.05s, transform 0.4s ease 0.05s;
-    margin-bottom: 6px;
-  }
-
-  .work-item:hover .work-item-title,
-  .work-item:hover .work-item-theme {
+  .work-item:hover .work-item-title {
     opacity: 1;
     transform: translateY(0);
   }
@@ -283,20 +270,18 @@
 
   .about-inner {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    max-width: 1000px;
+    grid-template-columns: 1fr 1.4fr;
+    max-width: 1100px;
     width: 100%;
     padding: calc(var(--nav-h) + 60px) 60px 80px;
-    gap: 80px;
-    align-items: center;
+    gap: 60px;
+    align-items: stretch;
   }
 
   .about-portrait {
-    aspect-ratio: 3/4;
     background: #e6e2dd;
     overflow: hidden;
     position: relative;
-    top: 0;
   }
 
   .about-portrait img {
@@ -528,15 +513,6 @@
     margin-left: 20px;
   }
 
-  .lb-info .shoot-theme {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.52rem;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: rgba(0,0,0,0.4);
-    margin-bottom: 8px;
-  }
-
   .lb-info .shoot-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.6rem;
@@ -641,11 +617,11 @@
       <div class="about-portrait-placeholder">Portrait</div>
     </div>
     <div class="about-text">
-      <p>I'm Priyanka Kanawala, a fashion stylist and creative director originally from Mumbai, India — a city that shaped my early love for glamour, storytelling, and expressive visual culture. Growing up in such a vibrant environment made fashion feel less like a choice and more like a natural language for how I see the world.</p>
-      <p>I later moved to London to study Fashion Styling and Creative Direction, where my practice evolved into a more conceptual and refined one. Being in London pushed me to explore fashion beyond aesthetics — into ideas, narratives, and the emotions behind imagery.</p>
+      <p>I'm Priyanka Kanawala, a fashion stylist and creative director originally from Mumbai, India- a city that shaped my early love for glamour, storytelling, and expressive visual culture. Growing up in such a vibrant environment made fashion feel less like a choice and more like a natural language for how I see the world.</p>
+      <p>I later moved to London to study Fashion Styling and Creative Direction, where my practice evolved into a more conceptual and refined one. Being in London pushed me to explore fashion beyond aesthetics into ideas, narratives, and the emotions behind imagery.</p>
       <p>I love storytelling in every form. Whether it's editorial shoots, commercial campaigns, celebrity styling, runway shows, or personal creative projects, I enjoy building concepts from scratch and bringing them to life on set. Collaborating with creative teams, solving visual puzzles, and watching an idea transform into a finished image is what excites me most about this work.</p>
       <p>Outside of styling, I'm usually just out and about, taking everything in and finding inspiration in the everyday. I love travelling, discovering new vegan food spots and people-watching. I'm also into the little joys like watching dog videos on Instagram, finding new brands to shop, doing Pilates, and spending time at the beach. I'm really drawn to anything colourful and whimsical.</p>
-      <p>I'm always collecting moments, moods, and details — and turning them into visuals that feel playful, expressive, and full of life.</p>
+      <p>I'm always collecting moments, moods, and details and turning them into visuals that feel playful, expressive, and full of life.</p>
     </div>
   </div>
 </div>
@@ -684,8 +660,7 @@
 <img id="lbImg" src="" alt="Shoot image">
     </div>
     <div class="lb-info">
-      <div class="shoot-theme" id="lbTheme"></div>
-      <div class="shoot-title" id="lbTitle"></div>
+<div class="shoot-title" id="lbTitle"></div>
       <ul class="lb-credits" id="lbCredits"></ul>
     </div>
   </div>
@@ -1014,7 +989,6 @@ function buildWorkGrid() {
     item.innerHTML = `
       <img src="${shoot.cover}" alt="${shoot.title}" loading="lazy">
       <div class="work-item-overlay">
-        <div class="work-item-theme">${shoot.theme}</div>
         <div class="work-item-title">${shoot.title}</div>
       </div>
     `;
@@ -1043,7 +1017,6 @@ function closeLightbox() {
 }
 
 function updateLbMeta() {
-  document.getElementById('lbTheme').textContent = lbShoot.theme;
   document.getElementById('lbTitle').textContent = lbShoot.title;
   document.getElementById('lbCounter').textContent = `${lbIndex + 1} / ${lbShoot.images.length}`;
   const ul = document.getElementById('lbCredits');
