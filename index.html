@@ -5,7 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Priyanka Kanawala</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@200;300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap');
+
+  @font-face {
+    font-family: 'Nimbus Sans';
+    src: url('fonts/NimbusSanL-Reg.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Nimbus Sans';
+    src: url('fonts/NimbusSanL-Bol.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Sharpe';
+    src: url('fonts/SharpeMe.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Sharpe';
+    src: url('fonts/SharpeBo.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -54,12 +83,12 @@
 
   
   .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.05rem;
-    font-weight: 400;
+    font-family: 'Nimbus Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--black);
+    color: #c0392b;
     cursor: pointer;
     text-decoration: none;
   }
@@ -205,7 +234,7 @@
     position: relative;
     overflow: hidden;
     cursor: pointer;
-    aspect-ratio: 2/3;
+    height: calc(100vh - var(--nav-h) - 48px - 32px - 60px);
   }
 
   .work-item img {
@@ -238,11 +267,11 @@
   }
 
   .work-item-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    font-weight: 300;
-    font-style: italic;
-    letter-spacing: 0.04em;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    font-style: normal;
+    letter-spacing: 0.02em;
     color: #fff;
     opacity: 0;
     transform: translateY(10px);
@@ -355,7 +384,7 @@
   }
 
   .contact-heading {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Playfair Display', Georgia, serif;
     font-size: clamp(2.6rem, 4.5vw, 4rem);
     font-weight: 300;
     font-style: italic;
@@ -514,10 +543,10 @@
   }
 
   .lb-info .shoot-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem;
-    font-weight: 300;
-    font-style: italic;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    font-style: normal;
     color: var(--black);
     margin-bottom: 24px;
     line-height: 1.25;
@@ -676,7 +705,7 @@ const SHOOTS = [
     id: 1,
     theme: "High Fashion",
     title: "I Do / I Don't",
-    cover: "https://picsum.photos/seed/1005/800/1067",
+    cover: "images/I Do I Dont/1.jpg",
     credits: [
       { role: "Talent", name: "Jules Jessica" },
       { role: "Makeup Artist", name: "Rumbidzai Nyamukapa" },
@@ -685,14 +714,15 @@ const SHOOTS = [
       { role: "Photographer & Editor", name: "Shola Katija" }
     ],
     images: [
-      "https://picsum.photos/seed/2000/900/1200",
-      "https://picsum.photos/seed/2001/900/1200",
-      "https://picsum.photos/seed/2002/900/1200",
-      "https://picsum.photos/seed/2003/900/1200",
-      "https://picsum.photos/seed/2004/900/1200",
-      "https://picsum.photos/seed/2005/900/1200",
-      "https://picsum.photos/seed/2006/900/1200",
-      "https://picsum.photos/seed/2007/900/1200"
+      "images/I Do I Dont/1.jpg",
+      "images/I Do I Dont/2.jpg",
+      "images/I Do I Dont/3.jpg",
+      "images/I Do I Dont/4.jpg",
+      "images/I Do I Dont/5.jpg",
+      "images/I Do I Dont/6.jpg",
+      "images/I Do I Dont/7.jpg",
+      "images/I Do I Dont/8.jpg",
+      "images/I Do I Dont/9.jpg"
     
     ]
   },
@@ -700,7 +730,7 @@ const SHOOTS = [
     id: 2,
     theme: "Timeless Tale: Heritage & Roots",
     title: "Sutra: The Origin",
-    cover: "https://picsum.photos/seed/1012/800/1067",
+    cover: "images/Sutra The Origin/1.jpg",
     credits: [
       { role: "Talent", name: "Elsie Pountney" },
       { role: "Hair & Makeup", name: "Georgia Kearvell" },
@@ -708,14 +738,16 @@ const SHOOTS = [
       { role: "Photographer", name: "Camilla Tavoletti" }
     ],
     images: [
-      "https://picsum.photos/seed/2010/900/1200",
-      "https://picsum.photos/seed/2011/900/1200",
-      "https://picsum.photos/seed/2012/900/1200",
-      "https://picsum.photos/seed/2013/900/1200",
-      "https://picsum.photos/seed/2014/900/1200",
-      "https://picsum.photos/seed/2015/900/1200",
-      "https://picsum.photos/seed/2016/900/1200",
-      "https://picsum.photos/seed/2017/900/1200"
+      "images/Sutra The Origin/1.jpg",
+      "images/Sutra The Origin/2.jpg",
+      "images/Sutra The Origin/3.jpg",
+      "images/Sutra The Origin/4.jpg",
+      "images/Sutra The Origin/5.jpg",
+      "images/Sutra The Origin/6.jpg",
+      "images/Sutra The Origin/7.jpg",
+      "images/Sutra The Origin/8.jpg",
+      "images/Sutra The Origin/9.jpg",
+      "images/Sutra The Origin/10.jpg"
     
     ]
   },
@@ -723,21 +755,23 @@ const SHOOTS = [
     id: 3,
     theme: "Sustainability / Eco Consciousness",
     title: "Nothing to Wear",
-    cover: "https://picsum.photos/seed/1019/800/1067",
+    cover: "images/Nothing to Wear/1.jpg",
     credits: [
       { role: "Talent", name: "Chloe Bongo" },
       { role: "Styling & Creative Direction", name: "Priyanka Kanawala" },
       { role: "Photographer & Editor", name: "Poppy Ackroyd" }
     ],
     images: [
-      "https://picsum.photos/seed/2020/900/1200",
-      "https://picsum.photos/seed/2021/900/1200",
-      "https://picsum.photos/seed/2022/900/1200",
-      "https://picsum.photos/seed/2023/900/1200",
-      "https://picsum.photos/seed/2024/900/1200",
-      "https://picsum.photos/seed/2025/900/1200",
-      "https://picsum.photos/seed/2026/900/1200",
-      "https://picsum.photos/seed/2027/900/1200"
+      "images/Nothing to Wear/1.jpg",
+      "images/Nothing to Wear/2.jpg",
+      "images/Nothing to Wear/3.jpg",
+      "images/Nothing to Wear/4.jpg",
+      "images/Nothing to Wear/5.jpg",
+      "images/Nothing to Wear/6.jpg",
+      "images/Nothing to Wear/7.jpg",
+      "images/Nothing to Wear/8.jpg",
+      "images/Nothing to Wear/9.jpg",
+      "images/Nothing to Wear/10.jpg"
     
     ]
   },
@@ -745,7 +779,7 @@ const SHOOTS = [
     id: 4,
     theme: "Fashion Documentary Crossover",
     title: "Work-Life Balance",
-    cover: "https://picsum.photos/seed/1026/800/1067",
+    cover: "images/Work Life Balance/1.jpg",
     credits: [
       { role: "Talent", name: "Jethanand Jack Whatmough" },
       { role: "Styling & Creative Direction", name: "Priyanka Kanawala" },
@@ -753,14 +787,14 @@ const SHOOTS = [
       { role: "Video", name: "Daniel Kendrick" }
     ],
     images: [
-      "https://picsum.photos/seed/2030/900/1200",
-      "https://picsum.photos/seed/2031/900/1200",
-      "https://picsum.photos/seed/2032/900/1200",
-      "https://picsum.photos/seed/2033/900/1200",
-      "https://picsum.photos/seed/2034/900/1200",
-      "https://picsum.photos/seed/2035/900/1200",
-      "https://picsum.photos/seed/2036/900/1200",
-      "https://picsum.photos/seed/2037/900/1200"
+      "images/Work Life Balance/1.jpg",
+      "images/Work Life Balance/2.jpg",
+      "images/Work Life Balance/3.jpg",
+      "images/Work Life Balance/4.jpg",
+      "images/Work Life Balance/5.jpg",
+      "images/Work Life Balance/6.jpg",
+      "images/Work Life Balance/7.jpg",
+      "images/Work Life Balance/8.jpg"
     
     ]
   },
@@ -768,7 +802,7 @@ const SHOOTS = [
     id: 5,
     theme: "Through the Dream Portal",
     title: "Hypersleep Horizons",
-    cover: "https://picsum.photos/seed/1033/800/1067",
+    cover: "images/Hypersleep Horizons/1.jpeg",
     credits: [
       { role: "Talent", name: "Anna Pierrot" },
       { role: "Makeup Artist", name: "Labonno Asif" },
@@ -776,14 +810,12 @@ const SHOOTS = [
       { role: "Photographer", name: "Abdul Jalloh" }
     ],
     images: [
-      "https://picsum.photos/seed/2040/900/1200",
-      "https://picsum.photos/seed/2041/900/1200",
-      "https://picsum.photos/seed/2042/900/1200",
-      "https://picsum.photos/seed/2043/900/1200",
-      "https://picsum.photos/seed/2044/900/1200",
-      "https://picsum.photos/seed/2045/900/1200",
-      "https://picsum.photos/seed/2046/900/1200",
-      "https://picsum.photos/seed/2047/900/1200"
+      "images/Hypersleep Horizons/1.jpeg",
+      "images/Hypersleep Horizons/2.jpeg",
+      "images/Hypersleep Horizons/3.jpeg",
+      "images/Hypersleep Horizons/4.jpeg",
+      "images/Hypersleep Horizons/5.jpeg",
+      "images/Hypersleep Horizons/6.jpeg"
     
     ]
   },
@@ -791,7 +823,7 @@ const SHOOTS = [
     id: 6,
     theme: "I Love Pop",
     title: "Press Flash Princess",
-    cover: "https://picsum.photos/seed/1040/800/1067",
+    cover: "images/Press Flash Princess/1.jpg",
     credits: [
       { role: "Talent", name: "Eliza Flynn" },
       { role: "Hair & Makeup", name: "Bea Westlake, Constantina Maria, Sophie Lang" },
@@ -799,14 +831,15 @@ const SHOOTS = [
       { role: "Photographer & Editor", name: "Atoosa Salamat" }
     ],
     images: [
-      "https://picsum.photos/seed/2050/900/1200",
-      "https://picsum.photos/seed/2051/900/1200",
-      "https://picsum.photos/seed/2052/900/1200",
-      "https://picsum.photos/seed/2053/900/1200",
-      "https://picsum.photos/seed/2054/900/1200",
-      "https://picsum.photos/seed/2055/900/1200",
-      "https://picsum.photos/seed/2056/900/1200",
-      "https://picsum.photos/seed/2057/900/1200"
+      "images/Press Flash Princess/1.jpg",
+      "images/Press Flash Princess/2.jpg",
+      "images/Press Flash Princess/3.jpg",
+      "images/Press Flash Princess/4.jpg",
+      "images/Press Flash Princess/5.jpg",
+      "images/Press Flash Princess/6.jpg",
+      "images/Press Flash Princess/7.jpg",
+      "images/Press Flash Princess/8.jpg",
+      "images/Press Flash Princess/9.jpg"
     
     ]
   },
@@ -814,7 +847,7 @@ const SHOOTS = [
     id: 7,
     theme: "Open",
     title: "GRWM",
-    cover: "https://picsum.photos/seed/1047/800/1067",
+    cover: "images/GRWM/1.jpg",
     credits: [
       { role: "Talent", name: "Ellana Blacher" },
       { role: "Hair & Makeup", name: "Oria Lockwood" },
@@ -822,14 +855,18 @@ const SHOOTS = [
       { role: "Photographer & Editor", name: "Tim Schein" }
     ],
     images: [
-      "https://picsum.photos/seed/2060/900/1200",
-      "https://picsum.photos/seed/2061/900/1200",
-      "https://picsum.photos/seed/2062/900/1200",
-      "https://picsum.photos/seed/2063/900/1200",
-      "https://picsum.photos/seed/2064/900/1200",
-      "https://picsum.photos/seed/2065/900/1200",
-      "https://picsum.photos/seed/2066/900/1200",
-      "https://picsum.photos/seed/2067/900/1200"
+      "images/GRWM/1.jpg",
+      "images/GRWM/2.jpg",
+      "images/GRWM/3.jpg",
+      "images/GRWM/4.jpg",
+      "images/GRWM/5.jpg",
+      "images/GRWM/6.jpg",
+      "images/GRWM/7.jpg",
+      "images/GRWM/8.jpg",
+      "images/GRWM/9.jpg",
+      "images/GRWM/10.jpg",
+      "images/GRWM/11.jpg",
+      "images/GRWM/12.jpg"
     
     ]
   },
@@ -837,7 +874,7 @@ const SHOOTS = [
     id: 8,
     theme: "Open",
     title: "The Flapper Files",
-    cover: "https://picsum.photos/seed/1054/800/1067",
+    cover: "images/The Flapper Files/1.jpg",
     credits: [
       { role: "Talent", name: "Emma Lindin" },
       { role: "Hair & Makeup", name: "Immi Louise" },
@@ -846,14 +883,16 @@ const SHOOTS = [
       { role: "Photographer & Editor", name: "Vishwa" }
     ],
     images: [
-      "https://picsum.photos/seed/2070/900/1200",
-      "https://picsum.photos/seed/2071/900/1200",
-      "https://picsum.photos/seed/2072/900/1200",
-      "https://picsum.photos/seed/2073/900/1200",
-      "https://picsum.photos/seed/2074/900/1200",
-      "https://picsum.photos/seed/2075/900/1200",
-      "https://picsum.photos/seed/2076/900/1200",
-      "https://picsum.photos/seed/2077/900/1200"
+      "images/The Flapper Files/1.jpg",
+      "images/The Flapper Files/2.jpg",
+      "images/The Flapper Files/3.jpg",
+      "images/The Flapper Files/4.jpg",
+      "images/The Flapper Files/5.jpg",
+      "images/The Flapper Files/6.jpg",
+      "images/The Flapper Files/7.jpg",
+      "images/The Flapper Files/8.jpg",
+      "images/The Flapper Files/9.jpg",
+      "images/The Flapper Files/10.jpg"
     
     ]
   }
