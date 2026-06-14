@@ -490,7 +490,8 @@
   }
 
   .lb-image-area img {
-    max-height: 100%;
+    height: 100%;
+    width: auto;
     max-width: 100%;
     object-fit: contain;
     display: block;
@@ -730,7 +731,7 @@ const SHOOTS = [
     id: 2,
     theme: "Timeless Tale: Heritage & Roots",
     title: "Sutra: The Origin",
-    cover: "images/Sutra The Origin/1.jpg",
+    cover: "images/Sutra The Origin/10.jpg",
     credits: [
       { role: "Talent", name: "Elsie Pountney" },
       { role: "Hair & Makeup", name: "Georgia Kearvell" },
@@ -983,7 +984,7 @@ function buildHomeColumns() {
     // Pause only the hovered column
   });
 
-  const speeds = [0.65, 0.50, 0.75];
+  const speeds = [1.1, 0.85, 1.25];
   const dirs   = [1, -1, 1];
   const pos    = [0, 0, 0];
 
@@ -1133,14 +1134,26 @@ document.addEventListener('keydown', e => {
 
 // Trackpad two-finger horizontal swipe (wheel event with deltaX)
 let lbWheelLocked = false;
+let lbWheelAccum = 0;
+let lbWheelTimer = null;
+
 document.getElementById('lightbox').addEventListener('wheel', e => {
   if (!document.getElementById('lightbox').classList.contains('open')) return;
-  if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return; // vertical scroll — ignore
   if (lbWheelLocked) return;
-  if (Math.abs(e.deltaX) < 15) return; // small nudge — ignore
+  if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return; // vertical — ignore
+
+  lbWheelAccum += e.deltaX;
+
+  // Reset accumulator after gesture ends
+  clearTimeout(lbWheelTimer);
+  lbWheelTimer = setTimeout(() => { lbWheelAccum = 0; }, 150);
+
+  if (Math.abs(lbWheelAccum) < 30) return; // wait for enough intent
+
   lbWheelLocked = true;
+  lbWheelAccum = 0;
   e.deltaX > 0 ? lbNext() : lbPrev();
-  setTimeout(() => { lbWheelLocked = false; }, 500); // debounce
+  setTimeout(() => { lbWheelLocked = false; }, 800); // lock until slide finishes
 }, { passive: true });
 
 // Mobile touch swipe (single finger)
