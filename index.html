@@ -174,15 +174,20 @@
   .col-img-wrap {
     position: relative;
     flex-shrink: 0;
-    cursor: default !important;
+    cursor: pointer;
     overflow: hidden;
+    width: 100%;
   }
 
   .col-img-wrap img {
-    cursor: default !important;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
   }
 
-  .scroll-col, .scroll-col * { cursor: default !important; }
+
 
   .col-img-wrap img {
     width: 100%;
@@ -504,34 +509,45 @@
     will-change: transform, opacity;
   }
 
-  .lb-image-area img.lb-current {
+  .lb-image-area img.lb-current,
+  .lb-image-area video.lb-current {
     transform: translateX(0);
     opacity: 1;
     z-index: 2;
   }
 
-  .lb-image-area img.lb-enter-right {
+  .lb-image-area img.lb-enter-right,
+  .lb-image-area video.lb-enter-right {
     transform: translateX(100%);
     opacity: 0;
     z-index: 1;
   }
 
-  .lb-image-area img.lb-enter-left {
+  .lb-image-area img.lb-enter-left,
+  .lb-image-area video.lb-enter-left {
     transform: translateX(-100%);
     opacity: 0;
     z-index: 1;
   }
 
-  .lb-image-area img.lb-exit-left {
+  .lb-image-area img.lb-exit-left,
+  .lb-image-area video.lb-exit-left {
     transform: translateX(-100%);
     opacity: 0;
     z-index: 1;
   }
 
-  .lb-image-area img.lb-exit-right {
+  .lb-image-area img.lb-exit-right,
+  .lb-image-area video.lb-exit-right {
     transform: translateX(100%);
     opacity: 0;
     z-index: 1;
+  }
+
+  .lb-image-area video {
+    position: absolute;
+    transition: transform 0.45s cubic-bezier(0.77,0,0.175,1), opacity 0.45s ease;
+    will-change: transform, opacity;
   }
 
 
@@ -791,6 +807,7 @@ const SHOOTS = [
       { role: "Video", name: "Daniel Kendrick" }
     ],
     images: [
+      "videos/Work Life Balance/output2.mp4",
       "images/Work Life Balance/1.jpg",
       "images/Work Life Balance/2.jpg",
       "images/Work Life Balance/3.jpg",
@@ -972,13 +989,8 @@ function buildHomeColumns() {
       img.alt = shoot ? shoot.title : '';
       img.loading = 'lazy';
 
-      // Shoot name label
-      const label = document.createElement('div');
-      label.className = 'col-img-label';
-      label.innerHTML = `<span>${shoot ? shoot.title : ''}</span>`;
-
       wrap.appendChild(img);
-      wrap.appendChild(label);
+      wrap.addEventListener('click', () => openLightbox(item.shootId, item.imgIdx));
       inner.appendChild(wrap);
     });
     col.appendChild(inner);
@@ -1055,6 +1067,11 @@ function openLightbox(shootId, imgIdx) {
 }
 
 function closeLightbox() {
+  // Stop any playing video
+  document.querySelectorAll('video').forEach(video => {
+    video.pause();
+    video.currentTime = 0;
+  });
   document.getElementById('lightbox').classList.remove('open');
   document.body.style.overflow = '';
 }
@@ -1075,10 +1092,24 @@ function renderLightbox() {
   // Initial render — no animation, just show current image
   const area = document.querySelector('.lb-image-area');
   area.innerHTML = '';
-  const img = document.createElement('img');
-  img.src = lbShoot.images[lbIndex];
-  img.className = 'lb-current';
-  area.appendChild(img);
+  const src = lbShoot.images[lbIndex];
+  
+  // Check if it's a video
+  if (src.endsWith('.mp4') || src.endsWith('.webm') || src.endsWith('.mov')) {
+    const video = document.createElement('video');
+    video.src = src;
+    video.className = 'lb-current';
+    video.controls = true;
+    video.style.width = '100%';
+    video.style.height = '100%';
+    video.style.objectFit = 'contain';
+    area.appendChild(video);
+  } else {
+    const img = document.createElement('img');
+    img.src = src;
+    img.className = 'lb-current';
+    area.appendChild(img);
+  }
   updateLbMeta();
 }
 
@@ -1089,11 +1120,24 @@ function slideTo(newIndex, direction) {
   lbSliding = true;
 
   const area = document.querySelector('.lb-image-area');
-  const current = area.querySelector('img.lb-current');
+  const current = area.querySelector('img.lb-current, video.lb-current');
 
-  // Create incoming image
-  const next = document.createElement('img');
-  next.src = lbShoot.images[newIndex];
+  // Create incoming image or video
+  const src = lbShoot.images[newIndex];
+  let next;
+  
+  if (src.endsWith('.mp4') || src.endsWith('.webm') || src.endsWith('.mov')) {
+    next = document.createElement('video');
+    next.src = src;
+    next.controls = true;
+    next.style.width = '100%';
+    next.style.height = '100%';
+    next.style.objectFit = 'contain';
+  } else {
+    next = document.createElement('img');
+    next.src = src;
+  }
+  
   next.className = direction === 1 ? 'lb-enter-right' : 'lb-enter-left';
   area.appendChild(next);
 
@@ -1105,12 +1149,13 @@ function slideTo(newIndex, direction) {
     current.className = direction === 1 ? 'lb-exit-left' : 'lb-exit-right';
     next.className = 'lb-current';
 
-    next.addEventListener('transitionend', () => {
+    const onTransitionEnd = () => {
       current.remove();
       lbIndex = newIndex;
       lbSliding = false;
       updateLbMeta();
-    }, { once: true });
+    };
+    next.addEventListener('transitionend', onTransitionEnd, { once: true });
   });
 }
 
@@ -1144,10 +1189,12 @@ document.getElementById('lightbox').addEventListener('wheel', e => {
   if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return; // vertical — ignore
   if (Math.abs(e.deltaX) < 5) return; // tiny nudge — ignore
 
+  // Prevent browser back/forward navigation
+  e.preventDefault();
+
   // Keep resetting the "gesture ended" timer on every wheel event
   clearTimeout(lbGestureTimer);
   lbGestureTimer = setTimeout(() => {
-    // Gesture ended — reset so next swipe can fire
     lbGestureFired = false;
   }, 250);
 
@@ -1156,7 +1203,7 @@ document.getElementById('lightbox').addEventListener('wheel', e => {
   lbGestureFired = true;
 
   e.deltaX > 0 ? lbNext() : lbPrev();
-}, { passive: true });
+}, { passive: false });
 
 // Mobile touch swipe (single finger)
 let lbTouchStartX = 0;
