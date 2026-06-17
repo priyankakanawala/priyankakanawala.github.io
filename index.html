@@ -1068,8 +1068,7 @@ function openLightbox(shootId, imgIdx) {
 
 function closeLightbox() {
   // Stop any playing video
-  const videos = document.querySelectorAll('.lb-image-area video');
-  videos.forEach(video => {
+  document.querySelectorAll('video').forEach(video => {
     video.pause();
     video.currentTime = 0;
   });
