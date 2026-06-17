@@ -174,15 +174,20 @@
   .col-img-wrap {
     position: relative;
     flex-shrink: 0;
-    cursor: default !important;
+    cursor: pointer;
     overflow: hidden;
+    width: 100%;
   }
 
   .col-img-wrap img {
-    cursor: default !important;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
   }
 
-  .scroll-col, .scroll-col * { cursor: default !important; }
+
 
   .col-img-wrap img {
     width: 100%;
@@ -972,13 +977,8 @@ function buildHomeColumns() {
       img.alt = shoot ? shoot.title : '';
       img.loading = 'lazy';
 
-      // Shoot name label
-      const label = document.createElement('div');
-      label.className = 'col-img-label';
-      label.innerHTML = `<span>${shoot ? shoot.title : ''}</span>`;
-
       wrap.appendChild(img);
-      wrap.appendChild(label);
+      wrap.addEventListener('click', () => openLightbox(item.shootId, item.imgIdx));
       inner.appendChild(wrap);
     });
     col.appendChild(inner);
@@ -1144,10 +1144,12 @@ document.getElementById('lightbox').addEventListener('wheel', e => {
   if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return; // vertical — ignore
   if (Math.abs(e.deltaX) < 5) return; // tiny nudge — ignore
 
+  // Prevent browser back/forward navigation
+  e.preventDefault();
+
   // Keep resetting the "gesture ended" timer on every wheel event
   clearTimeout(lbGestureTimer);
   lbGestureTimer = setTimeout(() => {
-    // Gesture ended — reset so next swipe can fire
     lbGestureFired = false;
   }, 250);
 
@@ -1156,7 +1158,7 @@ document.getElementById('lightbox').addEventListener('wheel', e => {
   lbGestureFired = true;
 
   e.deltaX > 0 ? lbNext() : lbPrev();
-}, { passive: true });
+}, { passive: false });
 
 // Mobile touch swipe (single finger)
 let lbTouchStartX = 0;
